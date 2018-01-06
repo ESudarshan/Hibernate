@@ -21,7 +21,7 @@ public class User {
 	private String name;
 
 	@Column(name = "JOINED_DATE")
-	@Temporal(TemporalType.TIMESTAMP) // (DATE, TIME OR TIMESTAMP) Doesn't work
+	@Temporal(TemporalType.TIME) // (DATE, TIME OR TIMESTAMP)
 	private Date joinedDate;
 
 	@Transient
@@ -70,4 +70,8 @@ public class User {
 		this.description = description;
 	}
 
+	@Override
+	public String toString() {
+		return id + "\t" + name + "\t" + joinedDate + "\t" + address + "\t" + description;
+	}
 }
