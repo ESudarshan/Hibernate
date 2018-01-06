@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
@@ -16,15 +18,16 @@ import javax.persistence.Transient;
 public class User {
 
 	@Id // Primary Key
+	@GeneratedValue(strategy = GenerationType.SEQUENCE) // (AUTO, IDENTITY, SEQUENCE, TABLE)
 	private int id;
 
 	private String name;
 
 	@Column(name = "JOINED_DATE")
-	@Temporal(TemporalType.TIME) // (DATE, TIME OR TIMESTAMP)
+	@Temporal(TemporalType.TIMESTAMP) // (DATE, TIME OR TIMESTAMP)
 	private Date joinedDate;
 
-	@Transient
+	@Transient // NO COLUMN IN DB
 	private String address;
 
 	@Lob // Large Object (BLOB or CLOB)
