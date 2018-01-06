@@ -1,5 +1,7 @@
 package org.esudarshan.client;
 
+import java.util.Date;
+
 import org.esudarshan.model.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -12,6 +14,8 @@ public class HibernateClient {
 		User user = new User();
 		user.setId(1);
 		user.setName("One");
+		user.setJoinedDate(new Date());
+		user.setAddress("Pune");
 
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		Session session = sessionFactory.openSession();

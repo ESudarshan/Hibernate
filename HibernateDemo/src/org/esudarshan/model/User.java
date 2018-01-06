@@ -1,17 +1,35 @@
 package org.esudarshan.model;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
-@Entity(name = "USER_INFO")
+@Entity
+@Table(name = "USER_INFO")
 public class User {
 
+	@Id // Primary Key
 	private int id;
+
 	private String name;
 
-	@Id
-	@Column(name = "USER_ID")
+	@Column(name = "JOINED_DATE")
+	@Temporal(TemporalType.TIMESTAMP) // (DATE, TIME OR TIMESTAMP) Doesn't work
+	private Date joinedDate;
+
+	@Transient
+	private String address;
+
+	@Lob // Large Object (BLOB or CLOB)
+	private String description;
+
 	public int getId() {
 		return id;
 	}
@@ -20,13 +38,36 @@ public class User {
 		this.id = id;
 	}
 
-	@Column(name = "USER_NAME")
 	public String getName() {
-		return name + " Modified in Getter";
+		return name;
 	}
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Date getJoinedDate() {
+		return joinedDate;
+	}
+
+	public void setJoinedDate(Date joinedDate) {
+		this.joinedDate = joinedDate;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 }
