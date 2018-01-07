@@ -1,21 +1,21 @@
 package org.esudarshan.model;
 
-import java.util.Date;
-
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 
 @Entity
 @Table(name = "USER_INFO")
 public class User {
+
+	// @EmbeddedId // Composite (Multi-column) Primary Key
+	// private LoggedInUser loggedInUser;
 
 	@Id // Primary Key
 	@GeneratedValue(strategy = GenerationType.SEQUENCE) // (AUTO, IDENTITY, SEQUENCE, TABLE)
@@ -23,15 +23,13 @@ public class User {
 
 	private String name;
 
-	@Column(name = "JOINED_DATE")
-	@Temporal(TemporalType.TIMESTAMP) // (DATE, TIME OR TIMESTAMP)
-	private Date joinedDate;
+	@Embedded // Optional as class Address is declared as Embeddable
+	private Address homeAddress;
 
-	@Transient // NO COLUMN IN DB
-	private String address;
-
-	@Lob // Large Object (BLOB or CLOB)
-	private String description;
+	@Embedded
+	@AttributeOverrides({ @AttributeOverride(name = "city", column = @Column(name = "OFFICE_CITY")),
+			@AttributeOverride(name = "state", column = @Column(name = "OFFICE_STATE")) })
+	private Address officeAddress;
 
 	public int getId() {
 		return id;
@@ -49,32 +47,24 @@ public class User {
 		this.name = name;
 	}
 
-	public Date getJoinedDate() {
-		return joinedDate;
+	public Address getHomeAddress() {
+		return homeAddress;
 	}
 
-	public void setJoinedDate(Date joinedDate) {
-		this.joinedDate = joinedDate;
+	public void setHomeAddress(Address homeAddress) {
+		this.homeAddress = homeAddress;
 	}
 
-	public String getAddress() {
-		return address;
+	public Address getOfficeAddress() {
+		return officeAddress;
 	}
 
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
+	public void setOfficeAddress(Address officeAddress) {
+		this.officeAddress = officeAddress;
 	}
 
 	@Override
 	public String toString() {
-		return id + "\t" + name + "\t" + joinedDate + "\t" + address + "\t" + description;
+		return id + "\t" + name + "\t" + homeAddress + "\t" + officeAddress;
 	}
 }
