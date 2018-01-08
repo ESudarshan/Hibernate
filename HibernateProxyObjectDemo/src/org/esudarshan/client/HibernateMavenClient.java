@@ -41,7 +41,6 @@ public class HibernateMavenClient {
 			for (Address address : user.getAddresses()) {
 				System.out.println(address);
 			}
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
