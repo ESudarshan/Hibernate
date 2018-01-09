@@ -16,10 +16,12 @@ public class HibernateMavenClient {
 		userOne.setName("One");
 		Vehicle vehicleOne = new Vehicle();
 		vehicleOne.setName("Car");
-		userOne.getVehicle().add(vehicleOne);
+		userOne.getVehicle().add(vehicleOne); // OneToMany
+		vehicleOne.setUser(userOne); // ManyToOne (if bidirectional mapping is required)
 		Vehicle vehicleTwo = new Vehicle();
-		vehicleTwo.setName("Car");
-		userOne.getVehicle().add(vehicleTwo);
+		vehicleTwo.setName("Jeep");
+		userOne.getVehicle().add(vehicleTwo); // OneToMany
+		vehicleTwo.setUser(userOne); // ManyToOne (if bidirectional mapping is required)
 
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		Session session = sessionFactory.openSession();

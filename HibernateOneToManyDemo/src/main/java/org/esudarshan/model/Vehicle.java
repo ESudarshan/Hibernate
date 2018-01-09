@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Vehicle {
@@ -13,6 +14,9 @@ public class Vehicle {
 	private int id;
 
 	private String name;
+
+	@ManyToOne
+	private User user;
 
 	public int getId() {
 		return id;
@@ -28,6 +32,14 @@ public class Vehicle {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	@Override
