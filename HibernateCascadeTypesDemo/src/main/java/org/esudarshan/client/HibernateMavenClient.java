@@ -36,7 +36,6 @@ public class HibernateMavenClient {
 			System.out.println(user);
 			System.out.println(user.getVehicles());
 			session.close();
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
