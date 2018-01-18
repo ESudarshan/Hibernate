@@ -11,18 +11,24 @@ public class HibernateMavenClient {
 
 		System.out.println("Welcome");
 
+		// Transient
 		User user = new User();
-		user.setName("Test User");
+		user.setName("Transient User");
 
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
+
+		// Persistent
 		session.save(user);
-		user.setName("Updated User");
+		user.setName("Persistent User");
+		user.setName("Again Persistent User");
+
 		session.getTransaction().commit();
 		session.close();
 
-		// read(sessionFactory, 1);
+		// Detached
+		user.setName("Detached User");
 
 		System.out.println("Thank you!");
 
