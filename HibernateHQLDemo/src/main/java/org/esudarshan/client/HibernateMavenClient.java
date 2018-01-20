@@ -30,8 +30,26 @@ public class HibernateMavenClient {
 		session = sessionFactory.openSession();
 		session.beginTransaction();
 
-		Query query = session.createQuery("from User where id > 7");
+		String minUserId = "7";
+		String userName = "User-5";
+
+		// Not Preferred
+		Query query = session.createQuery("from User where id > " + minUserId + "or name = '" + userName + "'");
 		List<User> userList = query.list();
+		System.out.println("No. of Users : " + userList.size());
+
+		// Parameter Binding 1
+		query = session.createQuery("from User where id > ? or name = ?");
+		query.setInteger(0, Integer.parseInt(minUserId));
+		query.setString(1, userName);
+		userList = query.list();
+		System.out.println("No. of Users : " + userList.size());
+
+		// Parameter Binding 2
+		query = session.createQuery("from User where id > :userId or name = :userName");
+		query.setInteger("userId", Integer.parseInt(minUserId));
+		query.setString("userName", userName);
+		userList = query.list();
 		System.out.println("No. of Users : " + userList.size());
 
 		session.getTransaction().commit();
